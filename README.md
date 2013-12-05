@@ -34,7 +34,7 @@ viewer.view = ... // set your customized view. e.g. viewer for animation gif
 # Install
 
 ## Manually
-Drag and Drop `Stop-Walking-iPhone` directory to your project.
+Drag and Drop `YSViewer` directory to your project.
 
 # Licence
 MIT Licene

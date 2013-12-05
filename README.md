@@ -33,6 +33,11 @@ viewer.view = ... // set your customized view. e.g. viewer for animation gif
 
 # Install
 
+## CocoaPods
+```
+pod 'YSViewer', :git => 'https://github.com/yashigani/YSViewer.git'
+```
+
 ## Manually
 Drag and Drop `YSViewer` directory to your project.
 

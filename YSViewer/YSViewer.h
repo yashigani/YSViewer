@@ -10,7 +10,7 @@
 
 @interface YSViewer : NSObject
 @property UIImage *image;
-@property UIView *view;
+@property (nonatomic) UIView *view;
 @property UIView *backgroundView;
 
 - (void)show;

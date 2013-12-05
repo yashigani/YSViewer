@@ -32,6 +32,8 @@
             }
             _view = iv;
         }
+        _backgroundView.frame = _window.frame;
+        [_window addSubview:_backgroundView];
         _view.center = _window.center;
         [_window addSubview:_view];
         [NSNotificationCenter.defaultCenter addObserver:self
@@ -74,7 +76,7 @@
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         wself.view.alpha = 1;
-                        wself.parentWindow.transform = CGAffineTransformMakeScale(0.8, 0.8);
+                        wself.parentWindow.transform = CGAffineTransformMakeScale(0.9, 0.9);
                     }
                     completion:nil];
 }

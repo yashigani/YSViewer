@@ -11,6 +11,7 @@
 @interface YSViewer : NSObject
 @property UIImage *image;
 @property UIView *view;
+@property UIView *backgroundView;
 
 - (void)show;
 - (void)hide;

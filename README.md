@@ -1,5 +1,5 @@
 # YSViewer
-YSViewer is image viewer like Tweetbot3.
+YSViewer is image viewer like Tweetbot 3.
 
 ![screenshot](./screenshot.png)
 
@@ -35,7 +35,7 @@ viewer.view = ... // set your customized view. e.g. viewer for animation gif
 
 ## CocoaPods
 ```
-pod 'YSViewer', :git => 'https://github.com/yashigani/YSViewer.git'
+pod 'YSViewer'
 ```
 
 ## Manually

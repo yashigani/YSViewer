@@ -1,7 +1,7 @@
 # YSViewer
 YSViewer is image viewer like Tweetbot 3.
 
-![screenshot](./screenshot.png)
+![gif](./demo.gif)
 
 # Requirements
 - iOS 7 or later

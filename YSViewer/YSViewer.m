@@ -7,7 +7,6 @@
 //
 
 #import "YSViewer.h"
-
 #import "YSViewerWindow.h"
 
 @interface YSViewer ()
@@ -25,11 +24,7 @@
         _window = [YSViewerWindow new];
         _window.viewer = self;
 
-        _backgroundView.frame = _window.frame;
-        [_window addSubview:_backgroundView];
-
-        self.view.center = _window.center;
-        [_window addSubview:self.view];
+        [_window setRootViewController:self.viewController];
 
         [NSNotificationCenter.defaultCenter addObserver:self
                                                selector:@selector(windowDidBecomeKey:)
@@ -64,13 +59,25 @@
 {
     if (!_view) {
         UIImageView *iv = [[UIImageView alloc] initWithImage:_image];
-        if (!CGRectContainsRect(_window.bounds, iv.bounds)) {
-            iv.frame = _window.bounds;
-            iv.contentMode = UIViewContentModeScaleAspectFit;
-        }
+        iv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
+        iv.contentMode = UIViewContentModeScaleAspectFit;
+        [iv sizeToFit];
         _view = iv;
     }
     return _view;
+}
+
+- (UIViewController *)viewController
+{
+    if (!_viewController) {
+        _viewController = ({
+            YSViewController *vc = [[YSViewController alloc] init];
+            [vc.view addSubview:self.view];
+            self.view.frame = vc.view.bounds;
+            vc;
+        });
+    }
+    return _viewController;
 }
 
 #pragma mark - UIWindow Notifications

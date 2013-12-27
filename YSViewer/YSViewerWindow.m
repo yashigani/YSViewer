@@ -46,7 +46,7 @@
 {
     CGPoint p = [_panGesture locationInView:self];
     if (_panGesture.state == UIGestureRecognizerStateBegan) {
-        CGPoint center = _viewer.view.center;
+        CGPoint center = _viewer.viewController.view.center;
         UIOffset offset = UIOffsetMake(p.x - center.x, p.y - center.y);
         _attachBehavior = [[UIAttachmentBehavior alloc] initWithItem:_viewer.view
                                                     offsetFromCenter:offset
@@ -86,10 +86,10 @@
             _panGesture.enabled = NO;
         }
         else {
-            __weak __typeof(self) wself = self;
             [UIView animateWithDuration:.25
                              animations:^{
-                                 _viewer.view.center = wself.center;
+                                 CGSize size = _viewer.viewController.view.bounds.size;
+                                 [_viewer.view setCenter:CGPointMake(size.width/2, size.height/2)];
                                  _viewer.view.transform = CGAffineTransformIdentity;
                              }
                              completion:nil];
@@ -99,8 +99,10 @@
 
 - (void)handleTapGesture:(id)sendr
 {
-    CGPoint p = [_viewer.view convertPoint:[_tapGesture locationInView:_viewer.view]
-                                    toView:self];
+//    CGPoint q = [_viewer.view convertPoint:[_tapGesture locationInView:_viewer.view]
+//                                    toView:self];
+
+    CGPoint p = [_tapGesture locationInView:_viewer.view];
     if (!CGRectContainsPoint(_viewer.view.frame, p)) {
         [_viewer hide];
     }

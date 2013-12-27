@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YSViewController.h"
 
 @interface YSViewer : NSObject
 @property UIImage *image;
 @property (nonatomic) UIView *view;
+@property (nonatomic) YSViewController *viewController;
 @property UIView *backgroundView;
 
 - (void)show;

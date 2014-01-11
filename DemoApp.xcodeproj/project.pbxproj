@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F3A15551880F9B400D47964 /* YSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A15541880F9B400D47964 /* YSViewController.m */; };
 		3FF183C91850AAFA0033C9FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF183C81850AAFA0033C9FE /* Foundation.framework */; };
 		3FF183CB1850AAFA0033C9FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF183CA1850AAFA0033C9FE /* CoreGraphics.framework */; };
 		3FF183CD1850AAFA0033C9FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF183CC1850AAFA0033C9FE /* UIKit.framework */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F3A15531880F9B400D47964 /* YSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSViewController.h; sourceTree = "<group>"; };
+		3F3A15541880F9B400D47964 /* YSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSViewController.m; sourceTree = "<group>"; };
 		3FF183C51850AAFA0033C9FE /* DemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FF183C81850AAFA0033C9FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3FF183CA1850AAFA0033C9FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -162,6 +165,8 @@
 		3FF184021850ABDA0033C9FE /* YSViewer */ = {
 			isa = PBXGroup;
 			children = (
+				3F3A15531880F9B400D47964 /* YSViewController.h */,
+				3F3A15541880F9B400D47964 /* YSViewController.m */,
 				3FF184031850ABDA0033C9FE /* YSViewer.h */,
 				3FF184041850ABDA0033C9FE /* YSViewer.m */,
 				3FF184061850AC7B0033C9FE /* YSViewerWindow.h */,
@@ -267,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F3A15551880F9B400D47964 /* YSViewController.m in Sources */,
 				3FF183DF1850AAFA0033C9FE /* ViewController.m in Sources */,
 				3FF184081850AC7B0033C9FE /* YSViewerWindow.m in Sources */,
 				3FF183D91850AAFA0033C9FE /* AppDelegate.m in Sources */,

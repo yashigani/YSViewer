@@ -12,6 +12,7 @@
 @property UIImage *image;
 @property (nonatomic) UIView *view;
 @property UIView *backgroundView;
+@property (readonly) UIWindow *parentWindow;
 
 - (void)show;
 - (void)hide;

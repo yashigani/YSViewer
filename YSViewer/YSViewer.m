@@ -12,7 +12,7 @@
 
 @interface YSViewer ()
 @property YSViewerWindow *window;
-@property UIWindow *parentWindow;
+@property (readwrite) UIWindow *parentWindow;
 @end
 
 @implementation YSViewer
@@ -23,13 +23,11 @@
     if (!_window) {
         _parentWindow = UIApplication.sharedApplication.keyWindow;
         _window = [YSViewerWindow new];
-        _window.viewer = self;
 
         _backgroundView.frame = _window.frame;
         [_window addSubview:_backgroundView];
 
-        self.view.center = _window.center;
-        [_window addSubview:self.view];
+        _window.viewer = self;
 
         [NSNotificationCenter.defaultCenter addObserver:self
                                                selector:@selector(windowDidBecomeKey:)

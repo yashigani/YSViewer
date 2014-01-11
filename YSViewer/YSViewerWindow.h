@@ -11,6 +11,6 @@
 @class YSViewer;
 
 @interface YSViewerWindow : UIWindow
-@property (weak) YSViewer *viewer;
+@property (weak, nonatomic) YSViewer *viewer;
 
 @end

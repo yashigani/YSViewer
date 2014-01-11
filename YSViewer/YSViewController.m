@@ -39,6 +39,11 @@
     [super didReceiveMemoryWarning];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return _viewer.parentWindow.rootViewController.preferredStatusBarStyle;
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return _viewer.parentWindow.rootViewController.prefersStatusBarHidden;

@@ -17,6 +17,9 @@
 @property UIPushBehavior *pushBehavior;
 @property UIPanGestureRecognizer *panGesture;
 @property UITapGestureRecognizer *tapGesture;
+@property UITapGestureRecognizer *doubleTap;
+@property UIPinchGestureRecognizer *twoFingerPinch;
+@property float lastScale;
 @end
 
 @implementation YSViewController
@@ -29,9 +32,24 @@
     _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                           action:@selector(handleAttachmentGesture:)];
     [self.view addGestureRecognizer:_panGesture];
+    
+    _doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+    [_doubleTap setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:_doubleTap];
+    
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                           action:@selector(handleTapGesture:)];
+    [_tapGesture requireGestureRecognizerToFail:_doubleTap];
+    [_tapGesture setNumberOfTapsRequired:1];
     [self.view addGestureRecognizer:_tapGesture];
+    
+    _twoFingerPinch = [[UIPinchGestureRecognizer alloc]
+                                                 initWithTarget:self
+                                                 action:@selector(handleTwoFingerPinch:)];
+    [self.view addGestureRecognizer:_twoFingerPinch];
+
+    self.lastScale = 1.0; // Initialize scale
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,6 +77,60 @@
 
 #pragma mark - handle gesture
 
+- (void)handleDoubleTap:(UITapGestureRecognizer *)gestureRecognizer {
+    
+    CGFloat currentScale = [[[gestureRecognizer view].layer valueForKeyPath:@"transform.scale"] floatValue];
+    
+    if ( currentScale != 1.0 ){
+        
+        // Double tap, return to original position
+        [UIView animateWithDuration:.25
+                         animations:^{
+                             CGAffineTransform transform = CGAffineTransformIdentity;
+                             [gestureRecognizer view].transform = transform;
+                         }
+                         completion:nil];
+        
+    }else{
+        
+        [UIView animateWithDuration:.25
+                         animations:^{
+                             CGAffineTransform transform = CGAffineTransformScale([[gestureRecognizer view] transform], 4.0, 4.0);
+                             [gestureRecognizer view].transform = transform;
+                         }
+                         completion:nil];
+        
+    }
+    
+}
+
+- (void)handleTwoFingerPinch:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+
+    if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        _lastScale = [gestureRecognizer scale];
+    }
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan ||
+        [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        
+        CGFloat currentScale = [[[gestureRecognizer view].layer valueForKeyPath:@"transform.scale"] floatValue];
+        
+        // Constants to adjust the max/min values of zoom
+        const CGFloat kMaxScale = 4.0;
+        const CGFloat kMinScale = 0.75;
+        
+        CGFloat newScale = 1 -  (_lastScale - [gestureRecognizer scale]);
+        newScale = MIN(newScale, kMaxScale / currentScale);
+        newScale = MAX(newScale, kMinScale / currentScale);
+        CGAffineTransform transform = CGAffineTransformScale([[gestureRecognizer view] transform], newScale, newScale);
+        [gestureRecognizer view].transform = transform;
+        
+        _lastScale = [gestureRecognizer scale];
+    }
+    
+}
+
 - (void)handleAttachmentGesture:(id)sender
 {
     CGPoint p = [_panGesture locationInView:self.view];
@@ -80,9 +152,9 @@
         _attachBehavior = nil;
 
         CGPoint velocity = [_panGesture velocityInView:self.view];
-        velocity = CGPointMake(velocity.x / 30, velocity.y / 30);
+        velocity = CGPointMake(velocity.x / 15, velocity.y / 15);
         CGFloat magnitude = (CGFloat)sqrt(pow((double)velocity.x, 2.0) + pow((double)velocity.y, 2.0));
-        if (magnitude > 30) {
+        if (magnitude > 50) {
             _collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[_viewer.view]];
             _collisionBehavior.collisionDelegate = self;
             CGFloat diagonal = -sqrt(pow(CGRectGetWidth(_viewer.view.frame), 2.0) +
@@ -114,13 +186,22 @@
     }
 }
 
-- (void)handleTapGesture:(id)sendr
+- (void)handleTapGesture:(UITapGestureRecognizer *)gestureRecognizer
 {
-    CGPoint p = [_viewer.view convertPoint:[_tapGesture locationInView:_viewer.view]
-                                    toView:self.view];
-    if (!CGRectContainsPoint(_viewer.view.frame, p)) {
-        [_viewer hide];
-    }
+    [UIView animateWithDuration:.35
+                     animations:^{
+                         CGAffineTransform transform = CGAffineTransformScale([[gestureRecognizer view] transform], 0.0, 0.0);
+                         [gestureRecognizer view].transform = transform;
+                     }
+                     completion:nil];
+    
+    
+    [self performSelector:@selector(closeViewAfterAnimation) withObject:nil afterDelay:0.35];
+    
+}
+
+-(void)closeViewAfterAnimation{
+    [_viewer hide];
 }
 
 #pragma mark - UICollisionBehaviorDelegate

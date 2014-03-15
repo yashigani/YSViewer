@@ -56,7 +56,9 @@
                                          }];
                         [wself.parentWindow makeKeyAndVisible];
                         wself.view.transform = CGAffineTransformIdentity;
+                        wself.view = nil; // Bug reload image
                     }];
+    
 }
 
 - (UIView *)view

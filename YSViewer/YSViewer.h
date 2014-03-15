@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface YSViewer : NSObject
-@property UIImage *image;
+@property (nonatomic) UIImage *image;
 @property (nonatomic) UIView *view;
 @property UIView *backgroundView;
 @property (readonly) UIWindow *parentWindow;

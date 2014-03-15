@@ -12,6 +12,7 @@
 
 @interface YSViewer ()
 @property YSViewerWindow *window;
+@property UIImageView *imageView;
 @property (readwrite) UIWindow *parentWindow;
 @end
 
@@ -61,14 +62,20 @@
 - (UIView *)view
 {
     if (!_view) {
-        UIImageView *iv = [[UIImageView alloc] initWithImage:_image];
-        if (!CGRectContainsRect(_window.bounds, iv.bounds)) {
-            iv.frame = _window.bounds;
-            iv.contentMode = UIViewContentModeScaleAspectFit;
+        _imageView = [[UIImageView alloc] initWithImage:_image];
+        if (!CGRectContainsRect(_window.bounds, _imageView.bounds)) {
+            _imageView.frame = _window.bounds;
+            _imageView.contentMode = UIViewContentModeScaleAspectFit;
         }
-        _view = iv;
+        _view = _imageView;
     }
     return _view;
+}
+
+- (void)setImage:(UIImage *)image
+{
+    _image = image;
+    _imageView.image = _image;
 }
 
 #pragma mark - UIWindow Notifications

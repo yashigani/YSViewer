@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "YSViewer"
-  s.version      = "0.2"
+  s.version      = "0.3"
   s.summary      = "Image viewer like Tweetbot 3."
   s.homepage     = "https://github.com/yashigani/YSViewer"
   s.license      = {
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   }
   s.author       = { "yashigani" => "tai.fukui@gmail.com" }
   s.platform     = :ios, '7.0'
-  s.source       = { :git => "https://github.com/yashigani/YSViewer.git", :tag => "0.2" }
+  s.source       = { :git => "https://github.com/yashigani/YSViewer.git", :tag => "0.3" }
   s.source_files  = 'YSViewer', 'YSViewer/*.{h,m}'
   s.requires_arc = true
 end

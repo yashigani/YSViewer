@@ -41,8 +41,8 @@ pod 'YSViewer'
 ## Manually
 Drag and Drop `YSViewer` directory to your project.
 
-# Licence
-MIT Licence
+# License
+MIT License
 
 Copyright (c) 2013 Taiki Fukui
 
